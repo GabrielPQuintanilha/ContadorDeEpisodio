@@ -13,26 +13,30 @@ const filler =  [33,50,147,148,149,204,205,213,214,287,298,299,303,304,305,355];
 
 
 let episodeOne = ((Math.floor(diasPassados)*2)+10);
-// let episodeOne = 63;
 let episodeTwo = episodeOne+1;
 let noFillerEpisodeOne="";
 let noFillerEpisodeTwo="";
+let epOneClean="";
+let epTwoClean="";
 
 fillerSequences();
 checkForFillerOne();
 checkForFillerTwo();
-
-
+seasonName();
+seasonNameTwo();
 
 spanData.textContent=diaUm.toLocaleDateString();
-spanNumeroEps.textContent="Episodios a serem vistos hoje são o "+noFillerEpisodeOne+" e o "+noFillerEpisodeTwo;
+spanNumeroEps.textContent="Episodios a serem vistos hoje são o "+noFillerEpisodeOne+" ("+epOneClean+") e o "+noFillerEpisodeTwo+" ("+epTwoClean+")";
 
 // console.log(diaUm);
 // console.log(diaDois);
-console.log(diasPassados);
-console.log(noFillerEpisodeOne);
-console.log(noFillerEpisodeTwo);
+// console.log(diasPassados);
+// console.log(noFillerEpisodeOne);
+// console.log(noFillerEpisodeTwo);
+// console.log(epOneClean);
+// console.log(epTwoClean);
 
+// ver se o ep 1 é filler
 function checkForFillerOne(){
     for (let controle = 0; controle <= filler.length;controle++){
         if (filler[controle] === episodeOne ){
@@ -44,6 +48,7 @@ function checkForFillerOne(){
     }
 }
 
+//ver se o ep 2 e filler
 function checkForFillerTwo(){
     for (let controle = 0; controle <= filler.length;controle++){
         if (filler[controle] === episodeTwo){
@@ -55,6 +60,25 @@ function checkForFillerTwo(){
         }
     }
     if (noFillerEpisodeOne === noFillerEpisodeTwo){noFillerEpisodeTwo=episodeTwo+1;}
+}
+
+//limpar nome ep 1
+function seasonName(){
+    let epName = noFillerEpisodeOne;
+    let seasonFinale = [0,20,41,63,91,109,131,151,167,189,205,212,229,265,316,342,366,394]
+    for (let i = 0 ; i <= seasonFinale.length;i++){
+        if (epName <=seasonFinale[i] && epName>seasonFinale[i-1] ){ epOneClean = "S"+i+"E"+(epName-seasonFinale[i-1]);}
+	
+    }
+}
+
+// limpar nome ep 2    
+function seasonNameTwo(){
+    let epName = noFillerEpisodeTwo;
+    let seasonFinale = [0,20,41,63,91,109,131,151,167,189,205,212,229,265,316,342,366,394]
+    for (let i = 0 ; i <= seasonFinale.length;i++){
+        if (epName <=seasonFinale[i] && epName>seasonFinale[i-1]){ epTwoClean = "S"+i+"E"+(epName-seasonFinale[i-1]);}
+    }
 }
 
 // para adicionar ao array Filler a seguinte lista de fillers: 64-108, 128-137,168-189, 228-266, 311-341;
