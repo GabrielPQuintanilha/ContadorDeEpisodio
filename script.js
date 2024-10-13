@@ -20,17 +20,16 @@ let epsVistos="";
 let diasRestantes="";
 
 
-let episodeOne = ((Math.floor(diasPassados)*2)+10);
-let episodeTwo = episodeOne+1;
+let episodeOne = "";
+let episodeTwo = "";
 let noFillerEpisodeOne="";
 let noFillerEpisodeTwo="";
 let epOneClean="";
 let epTwoClean="";
 let percentualVisto = "";
 
+episodeToday()
 fillerSequences();
-checkForFillerOne();
-checkForFillerTwo();
 seasonName();
 seasonNameTwo();
 cleanEpList();
@@ -61,6 +60,7 @@ spanDiasRestantes.textContent=diasRestantes+" dias para terminar";
 // console.log (epsVistos);
 // console.log(epsFaltantes);
 // console.log(percentualVisto);
+// console.log(episodeOne)
 
 // ver se o ep 1 é filler
 function checkForFillerOne(){
@@ -122,6 +122,15 @@ function epVistosFunction(){
     diasRestantes = epsFaltantes/2;
     barraCompleta.style.setProperty("width", `${percentualVisto}%`)
 }
+
+function episodeToday(){
+    for (let i=0;i<=(Math.floor(diasPassados));i++){
+        if(i===0){episodeOne=10; episodeTwo=11}
+        else{
+            episodeOne= episodeTwo+1;
+            episodeTwo= episodeOne+1;
+            checkForFillerOne();
+            checkForFillerTwo();}}}
 
 // para adicionar ao array Filler a seguinte lista de fillers: 64-108, 128-137,168-189, 228-266, 311-341;
 function fillerSequences(){
