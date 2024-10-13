@@ -38,7 +38,7 @@ epVistosFunction()
 
 
 spanData.textContent=diaUm.toLocaleDateString();
-spanNumeroEps.textContent="Ver Hoje: "+noFillerEpisodeOne+" ("+epOneClean+") e "+noFillerEpisodeTwo+" ("+epTwoClean+")";
+spanNumeroEps.textContent="Ver hoje: "+noFillerEpisodeOne+" ("+epOneClean+") e "+noFillerEpisodeTwo+" ("+epTwoClean+")";
 
 spanEpsVistos.textContent="Visto: "+epsVistos +" eps" ;
 
