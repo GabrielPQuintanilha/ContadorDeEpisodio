@@ -7,6 +7,9 @@ const spanEpsVistos = document.getElementById("spanEpsVistos");
 const spanPercentualVisto = document.getElementById("spanPercentualVisto");
 const spanDiasRestantes = document.getElementById("spanDiasRestantes");
 const barraCompleta = document.getElementById('barraCompleta');
+const botaoAtrasado = document.getElementById('botaoAtrasado');
+const divAtrasado = document.getElementById('divAtrasado');
+const inputNumeroAtrasado = document.getElementById('inputNumeroAtrasado');
 
 const diaUm = new Date();
 const diaDois = new Date(2024,9,01);  //index do mes começa com 0
@@ -15,11 +18,10 @@ const seasons = [0,20,21,22,28,18,22,20,16,22,16,6,17,36,51,26,24,26];
 const filler =  [33,50,147,148,149,204,205,213,214,287,298,299,303,304,305,355];
 const lastAiredEp = 366;
 const epsNoFillerList =[];
+
 let epsFaltantes ="";
 let epsVistos="";
 let diasRestantes="";
-
-
 let episodeOne = "";
 let episodeTwo = "";
 let noFillerEpisodeOne="";
@@ -28,15 +30,20 @@ let epOneClean="";
 let epTwoClean="";
 let percentualVisto = "";
 
+
 episodeToday()
 fillerSequences();
 seasonName();
 seasonNameTwo();
 cleanEpList();
 epVistosFunction()
+atualizarPagina()
 
+botaoAtrasado.addEventListener('click', showBotaoAtrasado);
+inputNumeroAtrasado.addEventListener('input', atualizarEpisodioAtrasado);
 
-
+function atualizarPagina(){
+    
 spanData.textContent=diaUm.toLocaleDateString();
 spanNumeroEps.textContent="Ver hoje: "+noFillerEpisodeOne+" ("+epOneClean+") e "+noFillerEpisodeTwo+" ("+epTwoClean+")";
 
@@ -45,22 +52,7 @@ spanEpsVistos.textContent="Visto: "+epsVistos +" eps" ;
 spanPercentualVisto.textContent= Math.floor(percentualVisto)+"%";
 
 spanDiasRestantes.textContent=diasRestantes+" dias para terminar";
-
-
-
-// console.log(diaUm);
-// console.log(diaDois);
-// console.log(diasPassados);
-// console.log(noFillerEpisodeOne);
-// console.log(noFillerEpisodeTwo);
-// console.log(epOneClean);
-// console.log(epTwoClean);
-// console.log (filler)
-// console.log(epsNoFillerList)
-// console.log (epsVistos);
-// console.log(epsFaltantes);
-// console.log(percentualVisto);
-// console.log(episodeOne)
+}
 
 // ver se o ep 1 é filler
 function checkForFillerOne(){
@@ -115,12 +107,15 @@ function cleanEpList(){
 }
 
 function epVistosFunction(){
+    
     for (let i=0;i<=epsNoFillerList.length;i++){
-        if (epsNoFillerList[i] === noFillerEpisodeOne){epsVistos=i+1; epsFaltantes = epsNoFillerList.length - epsVistos;}
+        if (epsNoFillerList[i] === noFillerEpisodeOne){epsVistos=i; epsFaltantes = epsNoFillerList.length - epsVistos;}
     }
     percentualVisto = (epsVistos/epsFaltantes)*100;
     diasRestantes = epsFaltantes/2;
     barraCompleta.style.setProperty("width", `${percentualVisto}%`)
+    
+    console.log(epsVistos, percentualVisto, )
 }
 
 function episodeToday(){
@@ -130,7 +125,10 @@ function episodeToday(){
             episodeOne= episodeTwo+1;
             episodeTwo= episodeOne+1;
             checkForFillerOne();
-            checkForFillerTwo();}}}
+            checkForFillerTwo();
+        }
+    }
+}
 
 // para adicionar ao array Filler a seguinte lista de fillers: 64-108, 128-137,168-189, 228-266, 311-341;
 function fillerSequences(){
@@ -141,4 +139,23 @@ function fillerSequences(){
     for (let i=311;i<=341;i++){filler.push(i);}
 }
 
+function showBotaoAtrasado(){
+    if (divAtrasado.style.display==="none"){divAtrasado.style.display="block"}
+    else {divAtrasado.style.display="none"}
+}
+
+function atualizarEpisodioAtrasado(){
+    let epAtrasado = inputNumeroAtrasado.value;
+    episodeOne = Number(inputNumeroAtrasado.value)+1;
+    episodeTwo = episodeOne+1;
+
+checkForFillerOne();
+checkForFillerTwo();
+seasonName();
+seasonNameTwo();
+epVistosFunction();
+
+atualizarPagina();
+
+}
 
