@@ -45,7 +45,7 @@ inputNumeroAtrasado.addEventListener('input', atualizarEpisodioAtrasado);
 function atualizarPagina(){
     
 spanData.textContent=diaUm.toLocaleDateString();
-spanNumeroEps.textContent="Ver hoje: "+noFillerEpisodeOne+" ("+epOneClean+") e "+noFillerEpisodeTwo+" ("+epTwoClean+")";
+spanNumeroEps.innerHTML="Ver hoje: "+`<a href="https://animesonlinecc.to/episodio/bleach-episodio-${noFillerEpisodeOne}/">${noFillerEpisodeOne}</a>`+" ("+epOneClean+") e "+`<a href="https://animesonlinecc.to/episodio/bleach-episodio-${noFillerEpisodeTwo}/">${noFillerEpisodeTwo}</a>`+" ("+epTwoClean+")";
 
 spanEpsVistos.textContent="Visto: "+epsVistos +" eps" ;
 
