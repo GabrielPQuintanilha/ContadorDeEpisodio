@@ -30,9 +30,8 @@ let epOneClean="";
 let epTwoClean="";
 let percentualVisto = "";
 
-
-episodeToday()
 fillerSequences();
+episodeToday()
 seasonName();
 seasonNameTwo();
 cleanEpList();
@@ -114,8 +113,6 @@ function epVistosFunction(){
     percentualVisto = (epsVistos/epsFaltantes)*100;
     diasRestantes = epsFaltantes/2;
     barraCompleta.style.setProperty("width", `${percentualVisto}%`)
-    
-    console.log(epsVistos, percentualVisto, )
 }
 
 function episodeToday(){
