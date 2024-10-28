@@ -58,6 +58,7 @@ function checkForFillerOne(){
     for (let controle = 0; controle <= filler.length;controle++){
         if (filler[controle] === episodeOne ){
             episodeOne++;
+            episodeTwo++;
             noFillerEpisodeOne = episodeOne;
         }
         else {noFillerEpisodeOne = episodeOne;
