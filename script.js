@@ -123,12 +123,20 @@ function showBotaoAtrasado(){
 }
 
 function atualizarEpisodioAtrasado(){
-    let epAtrasado = inputNumeroAtrasado.value;
-    episodeOne = Number(inputNumeroAtrasado.value)+1;
-    episodeTwo = episodeOne+1;
+    let epAtrasado = parseInt(inputNumeroAtrasado.value)+1;
+    
+    for (let i=0; i<epsNoFillerList.length; i++){
+    
+        if (epAtrasado ==epsNoFillerList[i]){
+            noFillerEpisodeOne = epsNoFillerList[i];
+            noFillerEpisodeTwo = epsNoFillerList[i+1];
+        }
+    }
+    
+    console.log(epAtrasado);
+    // noFillerEpisodeOne = Number(inputNumeroAtrasado.value)+1;
+    // noFillerEpisodeTwo = noFillerEpisodeOne+1;
 
-checkForFillerOne();
-checkForFillerTwo();
 seasonName();
 seasonNameTwo();
 epVistosFunction();
