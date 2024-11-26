@@ -1,0 +1,12 @@
+body{margin:auto;font-size:20px;max-width:375px;text-align:center;}
+
+#barraPercentual{border:black 1px solid;width:80%;height:8px;;margin:auto;margin-top:-18px;}
+#barraCompleta{background-color:green;height:8px;}
+#texto{margin-top:-60px;}
+#bleachLogo {width:200px;}
+#botaoAtrasado{background-color:white;width:50px;margin-top:10px;}
+#inputNumeroAtrasado{width:140px; text-align:center;touch-action: manipulation}
+#inputNumeroAtrasado::-webkit-outer-spin-button, #inputNumeroAtrasado::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
