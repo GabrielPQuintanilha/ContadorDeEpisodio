@@ -18,6 +18,7 @@ const seasons = [0,20,21,22,28,18,22,20,16,22,16,6,17,36,51,26,24,26];
 const filler =  [33,50,147,148,149,204,205,213,214,287,298,299,303,304,305,355];
 const lastAiredEp = 366;
 const epsNoFillerList =[];
+const allEpisodes =[];
 
 let epsFaltantes ="";
 let epsVistos="";
@@ -31,10 +32,11 @@ let epTwoClean="";
 let percentualVisto = "";
 
 fillerSequences();
+loadAllEpisodes();
+cleanEpList();
 episodeToday()
 seasonName();
 seasonNameTwo();
-cleanEpList();
 epVistosFunction()
 atualizarPagina()
 
@@ -53,32 +55,6 @@ spanPercentualVisto.textContent= Math.floor(percentualVisto)+"%";
 spanDiasRestantes.textContent=diasRestantes+" dias para terminar";
 }
 
-// ver se o ep 1 é filler
-function checkForFillerOne(){
-    for (let controle = 0; controle <= filler.length;controle++){
-        if (filler[controle] === episodeOne ){
-            episodeOne++;
-            episodeTwo++;
-            noFillerEpisodeOne = episodeOne;
-        }
-        else {noFillerEpisodeOne = episodeOne;
-        }
-    }
-}
-
-//ver se o ep 2 e filler
-function checkForFillerTwo(){
-    for (let controle = 0; controle <= filler.length;controle++){
-        if (filler[controle] === episodeTwo){
-            episodeTwo++;
-            noFillerEpisodeTwo=episodeTwo;
-        }
-        else {noFillerEpisodeTwo = episodeTwo;
-            
-        }
-    }
-    if (noFillerEpisodeOne === noFillerEpisodeTwo){noFillerEpisodeTwo=episodeTwo+1;}
-}
 
 //limpar nome ep 1
 function seasonName(){
@@ -100,41 +76,45 @@ function seasonNameTwo(){
 }
 
 function cleanEpList(){
-    for (let i=1;i<=lastAiredEp;i++){epsNoFillerList.push(i);}
-    for (let b=0;b<=epsNoFillerList.length;b++){
-        for (let a = 0; a<=filler.length;a++){if (filler[a] === epsNoFillerList[b]){epsNoFillerList.splice(b,1);}}
-    }
+    
+    let difference = allEpisodes.filter(item => !filler.includes(item));
+    epsNoFillerList.push(...difference);
+    // console.log(epsNoFillerList);
 }
 
 function epVistosFunction(){
     
     for (let i=0;i<=epsNoFillerList.length;i++){
-        if (epsNoFillerList[i] === noFillerEpisodeOne){epsVistos=i; epsFaltantes = epsNoFillerList.length - epsVistos;}
+        if (epsNoFillerList[i] === noFillerEpisodeOne){
+            epsVistos=i; 
+            epsFaltantes = epsNoFillerList.length - epsVistos;
+            }
     }
-    percentualVisto = (epsVistos/epsFaltantes)*100;
+    percentualVisto = (epsVistos/epsNoFillerList.length)*100;
     diasRestantes = epsFaltantes/2;
     barraCompleta.style.setProperty("width", `${percentualVisto}%`)
 }
 
 function episodeToday(){
-    for (let i=0;i<=(Math.floor(diasPassados));i++){
-        if(i===0){episodeOne=10; episodeTwo=11}
-        else{
-            episodeOne= episodeTwo+1;
-            episodeTwo= episodeOne+1;
-            checkForFillerOne();
-            checkForFillerTwo();
-        }
+    a=1;
+    for (let i=0; i<=(Math.floor(diasPassados)); i++){
+        noFillerEpisodeOne= epsNoFillerList[8+a];
+        noFillerEpisodeTwo = epsNoFillerList[8+a+1];
+        a=a+2;
     }
+    return noFillerEpisodeOne,noFillerEpisodeTwo;
 }
 
 // para adicionar ao array Filler a seguinte lista de fillers: 64-108, 128-137,168-189, 228-266, 311-341;
 function fillerSequences(){
-    for (let i=64;i<=108;i++){filler.push(i);}
-    for (let i=128;i<=137;i++){filler.push(i);}
-    for (let i=168;i<=189;i++){filler.push(i);}
-    for (let i=228;i<=266;i++){filler.push(i);}
-    for (let i=311;i<=341;i++){filler.push(i);}
+    let keyFillerEpisodes = [64,108,128,137,168,189,228,266,311,341];
+    
+    for (let i=0;i<=9;i=i+2){
+        for (let a= keyFillerEpisodes[i]; a<=keyFillerEpisodes[i+1]; a++){
+        filler.push(a);
+        }
+    }
+    // console.log("lista de filler: ",filler)
 }
 
 function showBotaoAtrasado(){
@@ -155,5 +135,14 @@ epVistosFunction();
 
 atualizarPagina();
 
+}
+
+function loadAllEpisodes(){
+
+    for (let i=1;i<=lastAiredEp;i++){
+        allEpisodes.push(i);
+    }
+    
+    // console.log(allEpisodes)
 }
 
